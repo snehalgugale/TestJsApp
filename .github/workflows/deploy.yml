@@ -10,28 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
       - name: Deploy to Railway
         run: railway up --detach --service TestJsApp
-
-      - name: Deploy to Railway
-        run: railway up --detach
-        
-      - name: Check token exists
-        run: |
-              if [ -z "$RAILWAY_TOKEN" ]; then
-                echo "❌ RAILWAY_TOKEN is empty!"
-              else
-                echo "✅ RAILWAY_TOKEN is set"
-              fi
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
