@@ -20,7 +20,11 @@ jobs:
         run: npm install -g @railway/cli
 
       - name: Deploy to Railway
+        run: railway up --detach --service TestJsApp
+
+      - name: Deploy to Railway
         run: railway up --detach
+        
       - name: Check token exists
         run: |
               if [ -z "$RAILWAY_TOKEN" ]; then
@@ -28,8 +32,6 @@ jobs:
               else
                 echo "✅ RAILWAY_TOKEN is set"
               fi
-      - name: Deploy to Railway
-        run: railway up --detach --service optimistic-reverence
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
