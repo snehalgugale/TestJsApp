@@ -5,19 +5,16 @@ on:
     branches:
       - main
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # ← Add this to opt into Node.js 24 now
-
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2        # ← updated version
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.3.0      # ← updated version
+        uses: actions/setup-node@v5
         with:
           node-version: '20.x'
           cache: 'npm'
@@ -35,7 +32,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2        # ← updated version
+        uses: actions/checkout@v5
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
